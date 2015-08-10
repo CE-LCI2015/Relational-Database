@@ -11,6 +11,7 @@
 Duration  | Activity
 ------------- | -------------
 6 h  | Investigation about the language
+3 h  | Programando la interfaz
 
 
 # References
@@ -19,3 +20,4 @@ Duration  | Activity
 * https://classes.soe.ucsc.edu/cmps112/Spring03/languages/scheme/SchemeTutorialA.html#example
 * http://docs.racket-lang.org/reference/let.html
 * http://c2.com/cgi/wiki?SchemeMacroExamples
+* http://docs.racket-lang.org/reference/strings.html
