@@ -1,7 +1,18 @@
-# ** Costa Rica Institute of Technology **
+# **Costa Rica Institute of Technology**
 # Programming Languages, Compilers and Interpreters
 # Relational Database
-** Project by: Roberto Bonilla and Pablo Rodríguez **
+**Project by: Roberto Bonilla and Pablo Rodríguez**
+
+
+# Student's Activity Log
+# TimeSheet
+**Pablo Rodriguez**
+
+Duration  | Activity
+------------- | -------------
+6 h  | Investigation about the language
+
+
 # References
 * http://web-artanis.com/scheme.html
 * http://alex-charlton.com/posts/Prototype_to_polish_Making_games_in_CHICKEN_Scheme_with_Hypergiant/
