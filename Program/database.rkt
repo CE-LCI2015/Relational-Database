@@ -1,39 +1,41 @@
 #lang scheme
-(define WELCOME ("Welcome to myDatabase \n >> "))
-(define PROMPT ("\n>> "))
-(define ERROR_INPUT ("Unknown command: "))
-(define ERROR_ARGUMENTS ("Unsuficient number of arguments or wrong command"))
+(define (WELCOME) "Welcome to myDatabase \n >> ")
+(define (PROMPT) "\n>> ")
+(define (ERROR_INPUT)  "Unknown command: ")
+(define (ERROR_ARGUMENTS) "Unsuficient number of arguments or wrong command")
+
+
 
 (define prompt-read (lambda (Prompt)
-                  (display "\nCurrent database:")  
                   (newline)
                   (display Prompt)    
                   (read-line))
 )
 
-(define manageCommand (lambda (command)
-                           (                           
-                            let([commandList (regexp-split #px" " command)]);definitions
-                             (if (equal? command "showall") (display command) ; if command is showall
-                                (if (<= (length commandList) 1)
-                            (display ERROR_ARGUMENTS);display error
-                            (manageCommandAux commandList)
-                            ))
-                           (manageCommand (prompt-read PROMPT)))
-                           )
+(define manageCommand (lambda (db command )          
+                  (let([commandList (regexp-split #px" " command)]);definitions
+                             (display "\nCurrent database:") 
+                             (display db)
+                             (newline)
+                             (cond [(equal? command "showall") (display command)(manageCommand db (prompt-read (PROMPT)))] ; if command is showall
+                                [(<= (length commandList) 1) (display (ERROR_ARGUMENTS)) (manageCommand db (prompt-read (PROMPT)))];display error
+                                [#t (manageCommand (manageCommandAux db commandList) (prompt-read (PROMPT)))]
+                            )
+                  )
+                     )
   )
             
-(define manageCommandAux (lambda (list)
+(define manageCommandAux (lambda (db list)
                                 (cond
-                             [(or (equal? (car list) "addtable") (equal? (car list) "addt")) (addtable (cdr list))]
-                             [#t (display (string-append ERROR_INPUT (car list)))]
+                             [(or (equal? (car list) "addtable") (equal? (car list) "addt")) (addtable db (cdr list))]
+                             [#t (display (string-append (ERROR_INPUT) (car list)))]
                              ))
 )
 
-(define addtable (lambda(args db)
+(define addtable (lambda(db args)
                         (let ([num (length args)])
                           (cond
-                            [(= num 1)(display ERROR_ARGUMENTS)]
+                            [(= num 1)(display (ERROR_ARGUMENTS))]
                             [#t (cons args db)])
                           );end let
                         )
@@ -44,6 +46,6 @@
        [#t (+ 1 (length (cdr list)))])
 )
   
-(define database (manageCommand (prompt-read WELCOME)));end database
+(define (database) (manageCommand '() (prompt-read (WELCOME))));end database
 
 (database)
