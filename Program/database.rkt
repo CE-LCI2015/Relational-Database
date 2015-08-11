@@ -7,8 +7,7 @@
 (define prompt-read (lambda (Prompt)
                   (display "\nCurrent database:")  
                   (newline)
-                  (display Prompt)
-                           
+                  (display Prompt)    
                   (read-line))
 )
 
@@ -20,20 +19,16 @@
                             (display ERROR_ARGUMENTS);display error
                             (manageCommandAux commandList)
                             ))
-                           (manageCommand (prompt-read PROMPT))
-                                                          );end let
+                           (manageCommand (prompt-read PROMPT)))
                            )
   )
             
-
-
 (define manageCommandAux (lambda (list)
                                 (cond
                              [(or (equal? (car list) "addtable") (equal? (car list) "addt")) (addtable (cdr list))]
                              [#t (display (string-append ERROR_INPUT (car list)))]
-                             )
-                                
-                              ))
+                             ))
+)
 
 (define addtable (lambda(args db)
                         (let ([num (length args)])
@@ -41,14 +36,14 @@
                             [(= num 1)(display ERROR_ARGUMENTS)]
                             [#t (cons args db)])
                           );end let
-                        ))
+                        )
+)
 
 (define (length list)
   (cond[(null? list) 0]
        [#t (+ 1 (length (cdr list)))])
-  )
+)
   
 (define database (manageCommand (prompt-read WELCOME)));end database
-
 
 (database)
