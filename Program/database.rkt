@@ -12,6 +12,7 @@
 
             ; These strings are used as prompts
             (;let definitions-begin
+            (db '())
             (WELCOME "Welcome to myDatabase \n >> ")
             (PROMPT "\n>> ")
             (ERROR_INPUT "Unknown command: ")
@@ -20,8 +21,11 @@
             ; This function displays a prompt then returns
             ; a value read.
             (prompt-read (lambda (Prompt)
-
+                  (display "\nCurrent database:")  
+                  (display db)
+                  (newline)
                   (display Prompt)
+                           
                   (read-line)))
 
 
@@ -43,11 +47,19 @@
                            ))
             (manageCommandAux (lambda (list)
                                 (cond
-                             [(or (equal? (car list) 'addtable) (equal? (car list) 'addt)) (display 'addtable)]
+                             [(or (equal? (car list) "addtable") (equal? (car list) "addt")) (addtable (cdr list))]
                              [#t (display (string-append ERROR_INPUT (car list)))]
                              )
                                 
                               ))
+                                
+            (addtable (lambda(args)
+                        (let ([num (length args)])
+                          (cond
+                            [(= num 1)(display ERROR_ARGUMENTS)]
+                            [#t (cons args db)])
+                          );end let
+                        ))
             
             
             );let definitions-end
