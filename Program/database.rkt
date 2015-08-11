@@ -6,14 +6,13 @@
 
 (define prompt-read (lambda (Prompt)
                   (display "\nCurrent database:")  
-                  (display db)
                   (newline)
                   (display Prompt)
                            
                   (read-line))
 )
 
-(definemanageCommand (lambda (command)
+(define manageCommand (lambda (command)
                            (                           
                             let([commandList (regexp-split #px" " command)]);definitions
                              (if (equal? command "showall") (display command) ; if command is showall
@@ -23,9 +22,10 @@
                             ))
                            (manageCommand (prompt-read PROMPT))
                                                           );end let
-                           ))
-            )
-)
+                           )
+  )
+            
+
 
 (define manageCommandAux (lambda (list)
                                 (cond
@@ -35,7 +35,7 @@
                                 
                               ))
 
-(define addtable (lambda(args)
+(define addtable (lambda(args db)
                         (let ([num (length args)])
                           (cond
                             [(= num 1)(display ERROR_ARGUMENTS)]
