@@ -14,6 +14,7 @@ Duration  | Activity
 ------------- | -------------
 6 h  | Investigation about the language
 3 h  | Programando la interfaz
+1 h  | Reunion con Roberto
 
 
 # References

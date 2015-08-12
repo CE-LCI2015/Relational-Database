@@ -1,4 +1,7 @@
+
 #lang scheme
+(require "utilities.rkt")
+
 (define (WELCOME) "Welcome to myDatabase \n >> ")
 (define (PROMPT) "\n>> ")
 (define (ERROR_INPUT)  "Unknown command: ")
@@ -41,10 +44,7 @@
                         )
 )
 
-(define (length list)
-  (cond[(null? list) 0]
-       [#t (+ 1 (length (cdr list)))])
-)
+
   
 (define (database) (manageCommand '() (prompt-read (WELCOME))));end database
 
