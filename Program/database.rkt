@@ -48,7 +48,7 @@
 ; Inserts record on a table PD: does not checks length of db vs index of table
 (define insertrecord (lambda(db index record)
                        (cond
-                         [(> index 0) (cons (car db) (insertrecord (cdr db) (- 1 index) record))]
+                         [(> index 0) (cons (car db) (insertrecord (cdr db) (sub1 index) record))]
                          [#t (cons (append (car db) (list record)) (cdr db))]
                          )
                         )
@@ -58,14 +58,15 @@
 (define addtable (lambda(db args)
                           (cond
                             [(= (length args) 1)(display (ERROR_ARGUMENTS)) db]
-                            [#t (cons (list args) db)])                        
+                            [#t (cons (list (append (list (car args) (sub1 (length args)) 0) (cdr args))) db)])                        
                         )
 )
 
 (define insert (lambda(db args)
                 (cond
                   [(equal? (searchtable db (car args)) -1) (display (WRONG_TABLE)) db]
-                  [(equal? (length (car (getPos db (searchtable db (car args))))) (length args) ) (insertrecord db (searchtable db (car args)) (cdr args))]
+                  [(equal? (cadar (getPos db (searchtable db (car args)))) (sub1 (length args)) ) (insertrecord db (searchtable db (car args)) (cdr args))]
+                  [#t (display "error") db]
                   )      
                 )
 )
