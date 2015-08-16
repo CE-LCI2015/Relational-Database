@@ -74,4 +74,17 @@
   
 (define (database) (manageCommand '() (prompt-read (WELCOME))));end database
 
-(database)
+(define (ITCR-NOT param)(cond[param #f][else #t]))
+
+;header is caaar headerP (just the names without the pk)
+(define (setReferenceAux header foreignKeyCol sourceTableName)( cond
+                                                            [(equal? (car header) foreignKeyCol)
+                                                             (append (list (append (list (car header)) (list sourceTableName))) (cdr header))
+                                                             ]
+                                                            [else 
+                                                             (append (list (car header))(setReference (cdr header) foreignKeyCol sourceTableName))
+                                                             ]
+                                                            )
+  )
+
+;(database)
