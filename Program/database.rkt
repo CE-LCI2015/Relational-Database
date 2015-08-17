@@ -1,4 +1,3 @@
-
 #lang scheme
 (require "utilities.rkt")
 
@@ -65,26 +64,50 @@
 (define insert (lambda(db args)
                 (cond
                   [(equal? (searchtable db (car args)) -1) (display (WRONG_TABLE)) db]
-                  [(equal? (cadar (getPos db (searchtable db (car args)))) (sub1 (length args)) ) (insertrecord db (searchtable db (car args)) (cdr args))]
-                  [#t (display "error") db]
+                  [(equal? (length (car (getPos db (searchtable db (car args))))) (length args) ) (insertrecord db (searchtable db (car args)) (cdr args))]
                   )      
                 )
 )
-
   
 (define (database) (manageCommand '() (prompt-read (WELCOME))));end database
 
+;not
 (define (NOT param)(cond[param #f][else #t]))
 
-;header is caar headerP (just the names)
+;returns false if the table has no registers
+(define (isEmpty? table)(equal? (cadar table) 0))
+
+;returns n elements
+;cars: number of elements to get
+;begin: initial position, default=0
+(define (carN elements cars [begin 0])(cond
+                                   [(> begin 0)(carN (cdr elements) cars (- begin 1))]
+                                   [(and(equal? begin 0)(> cars 0)(NOT (equal? '() elements)))(append (list (car elements))(carN (cdr elements) (- cars 1) begin))]
+                                   [else null]
+                              )
+  )
+
+;setReference: aux function
+;header is caaaar headerP (just the names)
+;it returns a list with a bool as first element
 (define (setReferenceAux header foreignKeyCol sourceTableName)( cond
                                                             [(equal? (car header) foreignKeyCol)
-                                                             (append (list (append (list (car header)) (list sourceTableName))) (cdr header))
+                                                             (append (list #f)(list (append (list (car header)) (list sourceTableName))) (cdr header))
                                                              ]
                                                             [else 
-                                                             (append (list (car header))(setReferenceAux (cdr header) foreignKeyCol sourceTableName))
+                                                             (append (list #t)(list (car header))(setReferenceAux (cdr header) foreignKeyCol sourceTableName))
                                                              ]
                                                             )
   )
 
-(database)
+;setReference: main function
+(define (setReference db tableToReference foreignKeyCol sourceTableName) (cond
+                                                             [(and (NOT(isEmpty? searchtable(db tableToReference)))(NOT(equal? -1 searchtable(db sourceTableName)))(equal? #t (car (setReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName))))
+                                                              ;TODO se debe sustituir la tabla vieja
+                                                              ;La siguiente linea devuelve el header completo
+                                                              ;(append  (carN searchtable(db tableToReference) 2)(+ 1 (caddar searchtable(db tableToReference)))(car (setReferenceAux (caaaar searchtable(db tableToReference)) foreignKeyCol sourceTableName)))
+                                                              ]
+                                                             )
+  )
+
+;(database)
