@@ -104,6 +104,16 @@
                                                                    )
   )
 
+(define (removeReference db tableToReference foreignKeyCol sourceTableName) (cond
+                                                             [(and (NOT(isEmpty? searchtable(db tableToReference)))(NOT(equal? -1 searchtable(db sourceTableName)))(equal? #t (car (removeReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName))))
+                                                              ;TODO se debe sustituir la tabla vieja
+                                                              ;La siguiente linea devuelve el header completo
+                                                              ;(append  (carN searchtable(db tableToReference) 2)(- 1 (caddar searchtable(db tableToReference)))(car (setReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName)))
+                                                              ]
+                                                             )
+)
+
+
 ;setReference: aux function
 ;header is caaaar headerP (just the names)
 ;it returns a list with a bool as first element
@@ -129,9 +139,9 @@
                                                              [(and (NOT(isEmpty? searchtable(db tableToReference)))(NOT(equal? -1 searchtable(db sourceTableName)))(equal? #t (car (setReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName))))
                                                               ;TODO se debe sustituir la tabla vieja
                                                               ;La siguiente linea devuelve el header completo
-                                                              ;(append  (carN searchtable(db tableToReference) 2)(+ 1 (caddar searchtable(db tableToReference)))(car (setReferenceAux (caaaar searchtable(db tableToReference)) foreignKeyCol sourceTableName)))
+                                                              ;(append  (carN searchtable(db tableToReference) 2)(+ 1 (caddar searchtable(db tableToReference)))(car (setReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName)))
                                                               ]
                                                              )
-  )
+)
 
 ;(database)
