@@ -81,23 +81,47 @@
 ;cars: number of elements to get
 ;begin: initial position, default=0
 (define (carN elements cars [begin 0])(cond
-                                   [(> begin 0)(carN (cdr elements) cars (- begin 1))]
-                                   [(and(equal? begin 0)(> cars 0)(NOT (equal? '() elements)))(append (list (car elements))(carN (cdr elements) (- cars 1) begin))]
-                                   [else null]
-                              )
+                                        [(> begin 0)(carN (cdr elements) cars (- begin 1))]
+                                        [(and(equal? begin 0)(> cars 0)(NOT (equal? '() elements)))(append (list (car elements))(carN (cdr elements) (- cars 1) begin))]
+                                        [else null]
+                                        )
+  )
+
+(define (removeReferenceAux  header foreignKeyCol sourceTableName [nL '()])(cond
+                                                                    [(NOT(null? header))
+                                                                     (cond
+                                                                       [(and (list? (car header))(equal? foreignKeyCol (caar header))(equal? sourceTableName (cadar header)))
+                                                                        (append (list #t) nL (list (caar header))(cdr header))
+                                                                        ]
+                                                                       [else 
+                                                                        (removeReferenceAux (cdr header) foreignKeyCol sourceTableName (append nL (list (car header))))
+                                                                        ]
+                                                                       )
+                                                                     ]
+                                                                    [else
+                                                                     (append (list #f) nL)
+                                                                     ]
+                                                                   )
   )
 
 ;setReference: aux function
 ;header is caaaar headerP (just the names)
 ;it returns a list with a bool as first element
-(define (setReferenceAux header foreignKeyCol sourceTableName)( cond
-                                                            [(equal? (car header) foreignKeyCol)
-                                                             (append (list #f)(list (append (list (car header)) (list sourceTableName))) (cdr header))
-                                                             ]
-                                                            [else 
-                                                             (append (list #t)(list (car header))(setReferenceAux (cdr header) foreignKeyCol sourceTableName))
-                                                             ]
-                                                            )
+(define (setReferenceAux header foreignKeyCol sourceTableName [nL '()])( cond
+                                                                          [(NOT(null? header))
+                                                                           (cond
+                                                                             [(equal? (car header) foreignKeyCol)
+                                                                              (append (list #t) nL (list (append (list (car header)) (list sourceTableName))) (cdr header))
+                                                                              ]
+                                                                             [else 
+                                                                              (setReferenceAux (cdr header) foreignKeyCol sourceTableName (append nL (list (car header))))
+                                                                              ]
+                                                                             )
+                                                                           ]
+                                                                          [else 
+                                                                           (append (list #f) nL)
+                                                                           ]
+                                                                          )
   )
 
 ;setReference: main function
