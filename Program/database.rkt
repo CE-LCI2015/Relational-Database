@@ -1,4 +1,3 @@
-
 #lang scheme
 (require "utilities.rkt")
 
@@ -10,9 +9,9 @@
 
 
 (define prompt-read (lambda (Prompt)
-                  (newline)
-                  (display Prompt)    
-                  (read-line))
+                      (newline)
+                      (display Prompt)    
+                      (read-line))
 )
 
 (define manageCommand (lambda (db command )          
@@ -58,7 +57,7 @@
 (define addtable (lambda(db args)
                           (cond
                             [(= (length args) 1)(display (ERROR_ARGUMENTS)) db]
-                            [#t (cons (list args) db)])                        
+                            [#t (cons (append (list (car args) 0 0) (list (cdr args))) db)])                        
                         )
 )
 
@@ -72,5 +71,18 @@
 
   
 (define (database) (manageCommand '() (prompt-read (WELCOME))));end database
+
+(define (NOT param)(cond[param #f][else #t]))
+
+;header is caar headerP (just the names)
+(define (setReferenceAux header foreignKeyCol sourceTableName)( cond
+                                                            [(equal? (car header) foreignKeyCol)
+                                                             (append (list (append (list (car header)) (list sourceTableName))) (cdr header))
+                                                             ]
+                                                            [else 
+                                                             (append (list (car header))(setReferenceAux (cdr header) foreignKeyCol sourceTableName))
+                                                             ]
+                                                            )
+  )
 
 (database)
