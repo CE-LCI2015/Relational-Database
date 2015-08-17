@@ -1,3 +1,4 @@
+
 #lang scheme
 (require "utilities.rkt")
 
@@ -64,7 +65,8 @@
 (define insert (lambda(db args)
                 (cond
                   [(equal? (searchtable db (car args)) -1) (display (WRONG_TABLE)) db]
-                  [(equal? (length (car (getPos db (searchtable db (car args))))) (length args) ) (insertrecord db (searchtable db (car args)) (cdr args))]
+                  [(equal? (cadar (getPos db (searchtable db (car args)))) (sub1 (length args)) ) (insertrecord db (searchtable db (car args)) (cdr args))]
+                  [#t (display "error") db]
                   )      
                 )
 )
