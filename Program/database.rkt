@@ -50,6 +50,6 @@
                 )
 )
   
-(define (database procedures) (manageCommand (list procedures '()) (prompt-read (WELCOME))));end database
+(define (database procedures) (manageCommand (list procedures) (prompt-read (WELCOME))));end database
 
 (database (createProceduresList))

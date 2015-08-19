@@ -54,4 +54,4 @@
                         )
   )
 
-(define (ev db args)(evAux db (cadar db) (car args) (cdr args)))
+(define (ev db args)(cons (car db) (cons (list (evAux db (cadar db) (car args) (cdr args))) (cdr db))))
