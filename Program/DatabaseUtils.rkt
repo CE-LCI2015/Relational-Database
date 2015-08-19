@@ -19,14 +19,19 @@
                   )
   )
 (define printTable (lambda (table)
-                  (display "HEADER: " )
-                  (display (car table))
                   (newline)
-                  (display (cdr table))
+                  (display "-----------------------" )
                   (newline)
+                  (display "Table Name: " )
+                  (display (caar table))
+                  (newline)
+                  (display "Columns: " )
+                  (display (cddar table))
+                  (newline)
+                  (display "Registers: " )
+                  (display  (cdr table))
                   )
   )
-
 
 ; Returns index of table in db
 (define searchtable (lambda(db tablename [index 0])
