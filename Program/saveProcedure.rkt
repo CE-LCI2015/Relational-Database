@@ -33,4 +33,5 @@
   )
 
 
-(evalF (getDictionaryTMP) 'f '(3))
+;(evalF (getDictionaryTMP) 'f '(3))
+;(evalF (getDictionaryTMP) 'p '(2 3))
