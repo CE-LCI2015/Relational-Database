@@ -22,13 +22,14 @@
                      )
   )
             
-(define manageCommandAux (lambda (db list)
+(define manageCommandAux (lambda (db args)
                                 (cond
-                             [(or (equal? (car list) "addtable") (equal? (car list) "addt")) (addtable db (cdr list))]
-                             [(or (equal? (car list) "insert") (equal? (car list) "ins")) (insert db (cdr list))]
-                             [(or (equal? (car list) "update") (equal? (car list) "ud")) (update db (cdr list))]
-                             [(equal? (car list) "cproc") (cproc db (cdr list))]
-                             [#t (display (string-append (ERROR_INPUT) (car list) "\n")) db]
+                             [(or (equal? (car args) "addtable") (equal? (car args) "addt")) (addtable db (cdr args))]
+                             [(or (equal? (car args) "insert") (equal? (car args) "ins")) (insert db (cdr args))]
+                             [(or (equal? (car args) "update") (equal? (car args) "ud")) (update db (cdr args))]
+                             [(equal? (car args) "cproc") (cproc db (cdr args))]
+                             [(equal? (car args) "eval") (evalTEC db (cdr args))]
+                             [#t (display (string-append (ERROR_INPUT) (car args) "\n")) db]
                              ))
 )
 
@@ -41,14 +42,14 @@
 (define addtable (lambda(db args)
                           (cond
                             [(= (length args) 1)(display (ERROR_ARGUMENTS)) db]
-                            [#t (cons (car db) (cons (list (append (list (car args) 0) (cdr args))) (cdr db)))])                        
+                            [#t (cons (car db) (cons (list (append (list (car args) 0) (cdr args))) (cdr db)))]) ;adds table with header 0 for foreign keys                       
                         )
 )
 (define insert (lambda(db args)
                 (cond
-                  [(equal? (searchtable db (car args)) -1) db]; error wrong table
-                  [(equal? (cadar (searchtableget db (car args))) (sub1 (length args)) ) (insertrecord db (searchtable db (car args)) (cdr args))]
-                  [#t (display "error") db]
+                  [(equal? (searchtable (cdr db) (car args)) -1) db]; error wrong table
+                  [(equal? (length (cddar (searchtableget (cdr db) (car args)))) (length (cdr args)) ) (insertrecord db (searchtable (cdr db) (car args)) (cdr args))];Insert record if lengths are equal
+                  [#t (display (ERROR_ARGUMENTS)) db]
                   )      
                 )
 )
