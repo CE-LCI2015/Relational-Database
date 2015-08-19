@@ -24,9 +24,11 @@
 
 
 ;Element counter
-(define (length list)
-  (cond[(null? list) 0]
-       [#t (+ 1 (length (cdr list)))])
+(define (length lis)
+  (cond
+	[(NOT(null? lis)) (+ 1 (length (cdr lis)))]
+        [else 0]
+)
 )
 
 ;Returns the element of the specified index
