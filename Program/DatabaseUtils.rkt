@@ -1,11 +1,8 @@
 #lang scheme
 (require "utilities.rkt")
-(provide prompt-read)
-(provide showall)
-(provide searchtable)
-(provide searchtableget)
-(provide searchpk)
-(provide insertrecord)
+
+(provide prompt-read showall searchtable searchtableget searchpk insertrecord)
+
 (define prompt-read (lambda (Prompt)
                   (newline)
                   (display Prompt)    
