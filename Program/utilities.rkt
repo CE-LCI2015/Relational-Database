@@ -1,7 +1,6 @@
 #lang scheme
-(provide split)
+(provide split or length)
 (provide length)
-(provide getElement)
 (provide getIndex)
 (provide getPos)
 (provide in?)
@@ -13,7 +12,7 @@
 (provide ERROR_INPUT)
 (provide ERROR_ARGUMENTS)
 (provide WRONG_TABLE)
-(provide WRONG_PK)
+(provide WRONG_PK PK_INVALID)
 
 (define (WELCOME) "Welcome to RELDB \n >> ")
 (define (PROMPT) "\n>> ")
@@ -21,7 +20,22 @@
 (define (ERROR_ARGUMENTS) "Wrong or unsuficient arguments.\n")
 (define (WRONG_TABLE) "Wrong table selected.\n")
 (define (WRONG_PK) "PrimaryKey does not exist.\n")
-
+(define (PK_INVALID) "PrimaryKey already exists.\n")
+;;Defining or
+(define (or . args)
+  (cond
+    [(null? args) #f]
+    [(car args) #t]
+    [#t (oraux (cdr args))]
+    )
+  )
+(define (oraux args)
+  (cond
+    [(null? args) #f]
+    [(car args) #t]
+    [#t (oraux (cdr args))]
+    )
+  )
 (define (split string)
   (regexp-split #px" " string)
   )

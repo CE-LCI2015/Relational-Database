@@ -7,9 +7,9 @@
 (define update (lambda(db args)
                 (cond
                   [(< (length args) 3) (display (ERROR_ARGUMENTS)) db]                 
-                  [(equal? (searchpk db (car args) (cadr args)) -1)   db ] ; register not found
-                  [(null? (updateargs (cdr(cdddar (searchtableget db (car args)))) (cddr args)))  db]; error with command
-                  [#t  (updateaux db args (updateargs (cdr(cdddar (searchtableget db (car args)))) (cddr args)))]
+                  [(equal? (searchpk (cdr db) (car args) (cadr args)) -1)   db ] ; register not found
+                  [(null? (updateargs (cddar (searchtableget (cdr db) (car args))) (cddr args)))  db]; error with command
+                  [#t  (cons (car db) (updateaux (cdr db) args (updateargs (cddar (searchtableget (cdr db) (car args))) (cddr args))) )]
                   )      
                 )
 )
@@ -17,7 +17,7 @@
 (define updateaux (lambda(db args updateargs)
                     (cond
                       [(NOT(equal? (car args) (caaar db))) (cons (car db) (updateaux (cdr db) args update args))]
-                      [#t (cons (cons caar (updateaux2 (cdaar db) (cdar db) (cdr args) updateargs)) (cdr db) )];fix header
+                      [#t (cons (cons caar (updateaux2 (cdaar db) (cdar db) (cdr args) updateargs)) (cdr db) )]
                       )                 
                  )
   )

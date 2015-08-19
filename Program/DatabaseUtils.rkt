@@ -74,7 +74,12 @@
 (define insertrecord (lambda(db tablename record)
                        (cond
                          [(null? db) (display (WRONG_TABLE)) db]
-                         [(equal? tablename (caaar db)) (cons (cons (caar db) (cons record (cdar db))) (cdr db))]
+                         [(equal? tablename (caaar db))
+                          (cond
+                            [(> (searchpkaux (cdar db) (car record)) 0) (display (PK_INVALID)) db]
+                            [#t (cons (cons (caar db) (cons record (cdar db))) (cdr db))]
+                            )
+                          ]
                          [#t (cons (car db) (insertrecord (cdr db) tablename record))]
                          )
                         )
