@@ -1,7 +1,7 @@
 
 #lang scheme
 (require "utilities.rkt")
-
+(require "update.rkt")
 (define (WELCOME) "Welcome to RELDB \n >> ")
 (define (PROMPT) "\n>> ")
 (define (ERROR_INPUT)  "Unknown command: ")
@@ -114,66 +114,7 @@
                 )
 )
 
-(define update (lambda(db args)
-                (cond
-                  [(< (length args) 3) (display (ERROR_ARGUMENTS)) db]                 
-                  [(equal? (searchpk db (car args) (cadr args)) -1)   db ] ; register not found
-                  [(null? (updateargs (cdr(cdddar (searchtableget db (car args)))) (cddr args)))  db]; error with command
-                  [#t  (updateaux db args (updateargs (cdr(cdddar (searchtableget db (car args)))) (cddr args)))]
-                  )      
-                )
-)
-;select table
-(define updateaux (lambda(db args updateargs)
-                    (cond
-                      [(NOT(equal? (car args) (caaar db))) (cons (car db) (updateaux (cdr db) args update args))]
-                      [#t (cons (cons caar (updateaux2 (cdar db) (cdr args) updateargs)) (cdr db) )]
-                      )                 
-                 )
-  )
-;select primarykey
-(define updateaux2 (lambda(table args updateargs)
-                                  (cond
-                      [(NOT(equal? (car args) (car table))) (cons (car table) (updateaux2 (cdr table) args update args))]
-                      [#t (cons (updateaux3 (car table)) (cdr table))]
-                      )
-                 )
-  )
-;change data from record
-(define updateaux3 (lambda(record args updateargs)
-                                  (cond
-                      [(NOT(equal? (car args) (car table))) (cons (car table) (updateaux2 (cdr table) args update args))]
-                      [#t (cons  (cdr table))]
-                      )
-                 )
-  )
 
-;analize update arguments
-(define updateargs (lambda(header args [result '()] [gotHeader? #f])
-                (cond
-                  [(null? args) (cond
-                                  [(null? result)  result]
-                                  [(null? (cdar result)) (display (ERROR_ARGUMENTS)) '()]
-                                  [#t (cons (list (caar result) (joinreverse (cdar result)))(cdr result))]
-                                  )]
-                  [(in? header (car args))
-                   (cond
-                     [gotHeader? (cond
-                                   [(null? (cdar result))(display (ERROR_ARGUMENTS)) '()]
-                                   [#t (updateargs header (cdr args) (cons (list (car args)) (cons (list (caar result) (joinreverse (cdar result)))(cdr result))) #t)]
-                                   )                                 
-                     ]
-                     [#t (updateargs header (cdr args) (cons (list (car args)) result) #t)])
-                   ]
-                  [#t (cond
-                        
-                        [gotHeader? (updateargs header (cdr args) (cons (append (list (caar result) (car args)) (cdar result)) (cdr result)) #t)]
-                        [#t (display (ERROR_ARGUMENTS)) '()]
-                        )
-                      ]
-                )
-        )
-)
   
 (define (database) (manageCommand '() (prompt-read (WELCOME))));end database
 
@@ -247,5 +188,3 @@
                                                               ]
                                                              )
 )
-
-;(database)

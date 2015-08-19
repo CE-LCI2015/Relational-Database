@@ -7,6 +7,22 @@
 (provide NOT)
 (provide join)
 (provide joinreverse)
+(provide WELCOME)
+(provide PROMPT)
+(provide ERROR_INPUT)
+(provide ERROR_ARGUMENTS)
+(provide WRONG_TABLE)
+(provide WRONG_PK)
+
+(define (WELCOME) "Welcome to RELDB \n >> ")
+(define (PROMPT) "\n>> ")
+(define (ERROR_INPUT)  "Unknown command: ")
+(define (ERROR_ARGUMENTS) "Wrong or unsuficient arguments.\n")
+(define (WRONG_TABLE) "Wrong table selected.\n")
+(define (WRONG_PK) "PrimaryKey does not exist.\n")
+
+
+
 ;Element counter
 (define (length list)
   (cond[(null? list) 0]
