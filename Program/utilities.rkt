@@ -3,7 +3,10 @@
 (provide getElement)
 (provide getIndex)
 (provide getPos)
-
+(provide in?)
+(provide NOT)
+(provide join)
+(provide joinreverse)
 ;Element counter
 (define (length list)
   (cond[(null? list) 0]
@@ -32,3 +35,20 @@
     [#t (getPos (cdr L) (sub1 position))]
     )
   )
+;Element in list?
+(define (in? L element)
+  (cond [(null? L) #f]
+    [(equal? element (car L))#t]
+    [#t (in? (cdr L) element)]
+    )
+  )
+
+
+; NOT redefiniton
+(define (NOT param)(cond[param #f][else #t]))
+
+
+;join strings on a list
+(define (join L)(cond [(null? L) ""][#t (string-append (car L) " " (join (cdr L)))]))
+;join strings on a reversed list
+(define (joinreverse L)(cond [(null? L) ""][#t (string-append  (join (cdr L)) " " (car L) )]))
