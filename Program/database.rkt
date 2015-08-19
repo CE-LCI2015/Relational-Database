@@ -48,7 +48,7 @@
 (define insert (lambda(db args)
                 (cond
                   [(equal? (searchtable (cdr db) (car args)) -1) db]; error wrong table
-                  [(equal? (length (cddar (searchtableget (cdr db) (car args)))) (length (cdr args)) ) (insertrecord db (searchtable (cdr db) (car args)) (cdr args))];Insert record if lengths are equal
+                  [(equal? (length (cddar (searchtableget (cdr db) (car args)))) (length (cdr args)) ) (cons (car db) (insertrecord (cdr db) (car args) (cdr args)))];Insert record if lengths are equal
                   [#t (display (ERROR_ARGUMENTS)) db]
                   )      
                 )

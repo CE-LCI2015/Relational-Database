@@ -71,10 +71,11 @@
   
 )
 ; Inserts record on a table PD: does not checks length of db vs index of table
-(define insertrecord (lambda(db index record)
+(define insertrecord (lambda(db tablename record)
                        (cond
-                         [(> index 0) (cons (car db) (insertrecord (cdr db) (sub1 index) record))]
-                         [#t (cons (append (car db) (list record)) (cdr db))]
+                         [(null? db) (display (WRONG_TABLE)) db]
+                         [(equal? tablename (caaar db)) (cons (cons (caar db) (cons record (cdar db))) (cdr db))]
+                         [#t (cons (car db) (insertrecord (cdr db) tablename record))]
                          )
                         )
 )
