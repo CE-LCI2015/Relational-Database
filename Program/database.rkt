@@ -17,7 +17,7 @@
                              (cond [(equal? command "showall") (showall (cdr db))(manageCommand db (prompt-read (PROMPT)))] ; if command is showall
                                    [(equal? command "exit") 0]
                                 [(<= (length (regexp-split #px" " command)) 1) (display (ERROR_ARGUMENTS)) (manageCommand db(prompt-read (PROMPT)))];display error
-                                [#t (manageCommand (manageCommandAux db (regexp-split #px" " command)) (prompt-read (PROMPT)))]
+                                [#t (manageCommand (manageCommandAux db (split command)) (prompt-read (PROMPT)))]
                             )                  
                      )
   )
@@ -28,7 +28,7 @@
                              [(or (equal? (car args) "insert") (equal? (car args) "ins")) (insert db (cdr args))]
                              [(or (equal? (car args) "update") (equal? (car args) "ud")) (update db (cdr args))]
                              [(equal? (car args) "cproc") (cproc db (cdr args))]
-                             [(equal? (car args) "eval") (evalTEC db (cdr args))]
+                             ;[(equal? (car args) "eval") (evalTEC db (cdr args))]
                              [#t (display (string-append (ERROR_INPUT) (car args) "\n")) db]
                              ))
 )
@@ -58,4 +58,8 @@
   
 (define (database) (manageCommand '(() ) (prompt-read (WELCOME))));end database
 
-(database)
+
+(define (databaseExample);; Execute this commands
+  (manageCommand (manageCommandAux (manageCommandAux '(() ) (split "addt estudiantes cedula nombre"))  (split "addt profesores id nombre lugar") )  "showall")
+  )
+(databaseExample)

@@ -1,4 +1,5 @@
 #lang scheme
+(provide split)
 (provide length)
 (provide getElement)
 (provide getIndex)
@@ -21,7 +22,9 @@
 (define (WRONG_TABLE) "Wrong table selected.\n")
 (define (WRONG_PK) "PrimaryKey does not exist.\n")
 
-
+(define (split string)
+  (regexp-split #px" " string)
+  )
 
 ;Element counter
 (define (length lis)
