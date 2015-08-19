@@ -2,6 +2,7 @@
 #lang scheme
 (require "utilities.rkt")
 (require "update.rkt")
+(require "saveProcedure.rkt")
 (require "DatabaseUtils.rkt")
 ;;;Database
 ;
@@ -12,6 +13,13 @@
 ;((nombre numeroDeLlavesForaneas columnas.....) registros...)
 ;;;;
 
+(define (createProceduresList)( list '(("addtable")) '() ) )
+
+(define (manageCommand db command )(cond [(equal? command "showall") (showall (cdr db))(manageCommand db (prompt-read (PROMPT)))] ; if command is showall
+                                         [(equal? command "exit") 0]
+                                         [(<= (length (regexp-split #px" " command)) 1) (display (ERROR_ARGUMENTS)) (manageCommand db(prompt-read (PROMPT)))];display error
+                                         [#t manageCommand (manageCommandAux db (regexp-split #px" " command)) (prompt-read (PROMPT))]
+                                         )
 (define manageCommand (lambda (db command )          
                              (newline)
                              (cond [(equal? command "showall") (showall (cdr db))(manageCommand db (prompt-read (PROMPT)))] ; if command is showall
@@ -22,6 +30,14 @@
                      )
   )
             
+(define (manageCommandAux db list)(cond
+                                    [(or (equal? (car list) "addtable") (equal? (car list) "addt")) (addtable db (cdr list))]
+                                    [(or (equal? (car list) "insert") (equal? (car list) "ins")) (insert db (cdr list))]
+                                    [(or (equal? (car list) "update") (equal? (car list) "ud")) (update db (cdr list))]
+                                    [(equal? (car list) "cproc") (cproc db (cdr list))]
+                                    [(equal? (car list) "eval") (ev db (cdr list))]
+                                    [#t (display (string-append (ERROR_INPUT) (car list) "\n")) db]
+                                    )
 (define manageCommandAux (lambda (db args)
                                 (cond
                              [(or (equal? (car args) "addtable") (equal? (car args) "addt")) (addtable db (cdr args))]
@@ -33,14 +49,7 @@
                              ))
 )
 
-(define cproc (lambda(db args)
-                          (display (car db))
-                          db                
-                        )
-  )
-
-(define addtable (lambda(db args)
-                          (cond
+(define (addtable db args)(cond
                             [(= (length args) 1)(display (ERROR_ARGUMENTS)) db]
                             [#t (cons (car db) (cons (list (append (list (car args) 0) (cdr args))) (cdr db)))]) ;adds table with header 0 for foreign keys                       
                         )
@@ -53,13 +62,7 @@
                   )      
                 )
 )
-
-
   
-(define (database) (manageCommand '(() ) (prompt-read (WELCOME))));end database
+(define (database procedures) (manageCommand (list procedures '()) (prompt-read (WELCOME))));end database
 
-
-(define (databaseExample);; Execute this commands
-  (manageCommand (manageCommandAux (manageCommandAux '(() ) (split "addt estudiantes cedula nombre"))  (split "addt profesores id nombre lugar") )  "showall")
-  )
-(databaseExample)
+(database (createProceduresList))
