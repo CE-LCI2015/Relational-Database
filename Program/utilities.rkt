@@ -14,7 +14,7 @@
 (provide WRONG_TABLE)
 (provide WRONG_PK PK_INVALID)
 
-(define (WELCOME) "Welcome to RELDB \n >> ")
+(define (WELCOME) "Welcome to RELDB \n>> ")
 (define (PROMPT) "\n>> ")
 (define (ERROR_INPUT)  "Unknown command: ")
 (define (ERROR_ARGUMENTS) "Wrong or unsuficient arguments.\n")

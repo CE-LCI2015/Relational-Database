@@ -4,7 +4,6 @@
 (provide prompt-read showall searchtable searchtableget searchpk insertrecord)
 
 (define prompt-read (lambda (Prompt)
-                  (newline)
                   (display Prompt)    
                   (read-line))
 )
