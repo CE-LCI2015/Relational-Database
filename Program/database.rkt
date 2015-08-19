@@ -14,9 +14,9 @@
 
 (define manageCommand (lambda (db command )          
                              (newline)
-                             (cond [(equal? command "showall") (showall db)(manageCommand db proc (prompt-read (PROMPT)))] ; if command is showall
+                             (cond [(equal? command "showall") (showall (cdr db))(manageCommand db (prompt-read (PROMPT)))] ; if command is showall
                                    [(equal? command "exit") 0]
-                                [(<= (length (regexp-split #px" " command)) 1) (display (ERROR_ARGUMENTS)) (manageCommand db proc (prompt-read (PROMPT)))];display error
+                                [(<= (length (regexp-split #px" " command)) 1) (display (ERROR_ARGUMENTS)) (manageCommand db(prompt-read (PROMPT)))];display error
                                 [#t (manageCommand (manageCommandAux db (regexp-split #px" " command)) (prompt-read (PROMPT)))]
                             )                  
                      )
@@ -36,6 +36,7 @@
                           (display (car db))
                           db                
                         )
+  )
 
 (define addtable (lambda(db args)
                           (cond
