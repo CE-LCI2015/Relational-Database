@@ -45,7 +45,7 @@ This project is developed in Dr. Racket, you need to download the interpreter an
 **Pablo Rodriguez**
 
 Duration  | Activity | Description
-------------- | -------------
+------------- | ------------- | -------------
 6 h  | Investigation | Investigation of the language
 3 h  | Coding | Programming the user interface 
 2 h  | Planning | Meeting with Roberto
