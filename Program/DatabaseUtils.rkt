@@ -1,7 +1,7 @@
 #lang scheme
 (require "utilities.rkt")
 
-(provide prompt-read showall searchtable searchtableget searchpk insertrecord)
+(provide prompt-read showall searchtable searchtableget searchpk insertrecord remover printTable)
 
 (define prompt-read (lambda (Prompt)
                   (display Prompt)    
@@ -75,7 +75,7 @@
                          [(null? db) (display (WRONG_TABLE)) db]
                          [(equal? tablename (caaar db))
                           (cond
-                            [(> (searchpkaux (cdar db) (car record)) 0) (display (PK_INVALID)) db]
+                            [(NOT (= (searchpkaux (cdar db) (car record)) -1) ) (display (PK_INVALID)) db]
                             [#t (cons (cons (caar db) (cons record (cdar db))) (cdr db))]
                             )
                           ]
@@ -84,3 +84,28 @@
                         )
 )
 
+(define remover (lambda(db args)
+                  (cond
+                  [(NOT (= (length args) 2)) (display (ERROR_ARGUMENTS)) db]  ; wrong arguments               
+                  [(equal? (searchpk (cdr db) (car args) (cadr args)) -1)   db ] ; register not found
+                  [#t  (cons (car db) (removeraux (cdr db) args))]
+                  )
+               )
+  )
+;searches table
+(define removeraux (lambda(db args)
+                     (cond
+                      [(NOT(equal? (car args) (caaar db))) (cons (car db) (removeraux (cdr db) args))]
+                      [#t (cons (cons (caar db) (removeraux2  (cdar db) (cdr args))) (cdr db) )]
+                      )     
+                     )
+  )
+
+;select record
+(define removeraux2 (lambda(table args)
+                                  (cond
+                      [(NOT(equal? (car args) (caar table))) (cons (car table) (removeraux2 (cdr table) args))]
+                      [#t (cdr table)]
+                      )
+                 )
+  )

@@ -16,21 +16,22 @@
 ;select table
 (define updateaux (lambda(db args updateargs)
                     (cond
-                      [(NOT(equal? (car args) (caaar db))) (cons (car db) (updateaux (cdr db) args update args))]
-                      [#t (cons (cons caar (updateaux2 (cdaar db) (cdar db) (cdr args) updateargs)) (cdr db) )]
+                      [(NOT(equal? (car args) (caaar db))) (cons (car db) (updateaux (cdr db) args updateargs))]
+                      [#t (cons (cons (caar db) (updateaux2 (cddaar db) (cdar db) (cdr args) updateargs)) (cdr db) )]
                       )                 
                  )
   )
 ;select primarykey
 (define updateaux2 (lambda(header table args updateargs)
                                   (cond
-                      [(NOT(equal? (car args) (car table))) (cons (car table) (updateaux2 header (cdr table) args update args))]
+                      [(NOT(equal? (car args) (caar table))) (cons (car table) (updateaux2 header (cdr table) args updateargs))]
                       [#t (cons (updateaux3 header (car table) updateargs) (cdr table))]
                       )
                  )
   )
 ;change data from record
 (define updateaux3 (lambda(header record updateargs)
+                   
                                   (cond
                       [(null? record) '()]
                       [#t (cons (updatenamevalue (car header) (car record) updateargs) (updateaux3 (cdr header) (cdr record) updateargs))]
@@ -41,7 +42,7 @@
 (define updatenamevalue (lambda(rowname original options)
                       (cond
                       [(null? options) original]
-                      [(equal? rowname (car options)) (cadr options)]
+                      [(equal? rowname (caar options)) (cadar options)]
                       [#t (updatenamevalue rowname original (cdr options))]
                       )
                  )
