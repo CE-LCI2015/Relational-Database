@@ -31,9 +31,10 @@
                                         [(NOT(null? functions))
                                          (cond
                                            [(equal? (caar functions) alias)
-                                            (eval (append (wifs(cadar functions)) (list db) (wifs params)))
+                                            (display (eval (append (wifs(cadar functions)) (list db) (wifs params))))
+                                            db
                                             ]
-                                           [else (evAux (cdr functions) alias params)]
+                                           [else (evAux db (cdr functions) alias params)]
                                            )
                                          ]
                                         [else 
