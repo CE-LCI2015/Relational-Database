@@ -31,8 +31,9 @@
                                         [(NOT(null? functions))
                                          (cond
                                            [(equal? (caar functions) alias)
-                                            (display (eval (append (wifs(cadar functions)) (list db) (wifs params))))
-                                            db
+                                            (newline)
+                                            (display (append (wifs (cadar functions)) (list db) (list params)))
+                                            (eval (append (wifs (cadar functions)) (list db) (list params)))
                                             ]
                                            [else (evAux db (cdr functions) alias params)]
                                            )
@@ -55,4 +56,4 @@
                         )
   )
 
-(define (ev db args)(cons (car db) (cons (list (evAux db (cadar db) (car args) (cdr args))) (cdr db))))
+(define ev(lambda (db args)(evAux db (cadar db) (car args) (cdr args))))

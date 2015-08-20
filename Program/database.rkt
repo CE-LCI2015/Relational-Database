@@ -13,7 +13,7 @@
 ;((nombre numeroDeLlavesForaneas columnas.....) registros...)
 ;;;;
 
-(define (createProceduresList)( list '(("addtable")) '() ) )
+(define (createProceduresList)( list '(('"addtable")) '() ) )
 
 (define (manageCommand db command)(
   cond [(equal? command "showall") (showall (cdr db))(manageCommand db (prompt-read (PROMPT)))] ; if command is showall
@@ -31,7 +31,7 @@
                              [(or (equal? (car args) "insert") (equal? (car args) "ins")) (insert db (cdr args))]
                              [(or (equal? (car args) "update") (equal? (car args) "ud")) (update db (cdr args))]
                              [(equal? (car args) "cproc") (cproc db (cdr args))]
-                             [(equal? (car args) "eval") ev db (cdr args)]
+                             [(equal? (car args) "eval") (ev db (cdr args))]
                              [#t (display (string-append (ERROR_INPUT) (car args) "\n")) db]
                              ))
 )

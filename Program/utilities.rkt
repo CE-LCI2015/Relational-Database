@@ -13,6 +13,8 @@
 (provide ERROR_ARGUMENTS)
 (provide WRONG_TABLE)
 (provide WRONG_PK PK_INVALID)
+(provide carN)
+
 
 (define (WELCOME) "Welcome to RELDB \n>> ")
 (define (PROMPT) "\n>> ")
@@ -78,6 +80,16 @@
     )
   )
 
+(define (carN lis f [i 0])(cond
+                              [(NOT(null? lis))
+                               (cond
+                                 [(> i 0)(carN (cdr lis) f (- i 1))]
+                                 [(or (> f i)(= f i))(append (car lis) (carN (cdr lis) (- f 1) i))]
+                               )
+                              ]
+                              [else null]
+                              )
+  )
 
 ; NOT redefiniton
 (define (NOT param)(cond[param #f][else #t]))

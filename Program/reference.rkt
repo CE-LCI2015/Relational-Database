@@ -1,5 +1,6 @@
 #lang scheme
-(require "utilities.rkt")
+(require "utilities.rkt" "DatabaseUtils.rkt")
+(provide removeReference setReference)
 
 (define (removeReferenceAux  header foreignKeyCol sourceTableName [nL '()])(cond
                                                                     [(NOT(null? header))
@@ -19,7 +20,7 @@
   )
 
 (define (removeReference db tableToReference foreignKeyCol sourceTableName) (cond
-                                                             [(and (NOT(isEmpty? searchtable(db tableToReference)))(NOT(equal? -1 searchtable(db sourceTableName)))(equal? #t (car (removeReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName))))
+                                                             [(and (NOT(null? (cdr (searchtableget db tableToReference))))(NOT(equal? -1 (searchtableget db sourceTableName)))(equal? #t (car (removeReferenceAux (cadddr (cdr (car (searchtableget db tableToReference)))) foreignKeyCol sourceTableName))))
                                                               ;TODO se debe sustituir la tabla vieja
                                                               ;La siguiente linea devuelve el header completo
                                                               ;(append  (carN searchtable(db tableToReference) 2)(- 1 (caddar searchtable(db tableToReference)))(car (setReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName)))
@@ -50,11 +51,9 @@
 
 ;setReference: main function
 (define (setReference db tableToReference foreignKeyCol sourceTableName) (cond
-                                                             [(and (NOT(isEmpty? searchtable(db tableToReference)))(NOT(equal? -1 searchtable(db sourceTableName)))(equal? #t (car (setReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName))))
-                                                              ;TODO se debe sustituir la tabla vieja
-                                                              ;La siguiente linea devuelve el header completo
-                                                              ;(append  (carN searchtable(db tableToReference) 2)(+ 1 (caddar searchtable(db tableToReference)))(car (setReferenceAux (cadddr (cdr (car searchtable(db tableToReference)))) foreignKeyCol sourceTableName)))
-                                                              ]
-                                                             )
+                                                                           [(and (NOT(equal? -1 (searchtableget (cdr db) sourceTableName)))(NOT(null? (cdr (searchtableget (cdr db) tableToReference))))(equal? #t (car (setReferenceAux (cadddr (cdr (car (searchtableget (cdr db) tableToReference)))) foreignKeyCol sourceTableName))))
+                                                                           ; (append (car db) (carN (cdr db) (- (searchtable tableToReference) 1)) () (carN (cdr db) (+ (searchtable tableToReference) 1)))
+                                                                            ]
+                                                                           )
 )
 
