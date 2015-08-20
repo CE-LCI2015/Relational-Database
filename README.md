@@ -5,6 +5,26 @@
 
 **Project by: Roberto Bonilla and Pablo Rodríguez**
 
+# Introduction
+
+Nowadays databases are very important on the Internet. Most companies use Relational Databases. We are developing on LISP/SCHEME
+a simple relational database. As part of this project we are going to learn how to program in a functional language interacting with their syntax and environment.
+
+# User Guide
+
+This project is developed in Dr. Racket, you need to download the interpreter and ide in order to run the program. You only have to load the file
+ and click on run . After that the prompt will be displayed on the screen and you have to choose a command from the following list:
+ 
+ * addtable / addt
+ * insert / ins
+ * addReference / addr
+ * removeReference / remr
+ * update / ud
+ * remover / rr
+ * deltable / delt
+ * query
+ * cproc
+ * eval
 
 # Student's Activity Log
 # TimeSheet
@@ -24,12 +44,16 @@
 
 **Pablo Rodriguez**
 
-Duration  | Activity
+Duration  | Activity | Description
 ------------- | -------------
-6 h  | Investigation about the language
-3 h  | Programando la interfaz
-1 h  | Reunion con Roberto
-
+6 h  | Investigation | Investigation of the language
+3 h  | Coding | Programming the user interface 
+2 h  | Planning | Meeting with Roberto
+3 h  | Coding | Adding a table and advance in insert
+2 h  | Coding | Finish insert and debugging
+1 h  | Plannig | Skype with Roberto
+5 h  | Coding | Programming the update function
+2 h  | Coding | Programing remove functions
 
 # References
 * http://web-artanis.com/scheme.html
