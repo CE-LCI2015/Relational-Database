@@ -8,6 +8,20 @@
 
 # Student's Activity Log
 # TimeSheet
+
+**Roberto Bonilla**
+
+| Activity                    | Description                                                                           | Time(h)  |
+|:---------------------------:|:---------------------------------------------------------------------------:|:--------:|
+| Investigation         | Lecture: José Helo, Introducción a la Programación con Scheme      	 | 8        |
+| Writing code         | functions to analyze                   				         | 2        |  
+| Investigation         | Eval function     	 								 | 3        |
+| Writing code         | stored procedures           		 					 | 3        |
+| Writing code         | relations                              		 					 | 3        |
+| Debugging             | evaluation of stored procedures                              | 10     |
+| Documentation   | functions                                                                                 | 3        |
+| Documentation   | final details                                                                            | 2        |
+
 **Pablo Rodriguez**
 
 Duration  | Activity
