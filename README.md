@@ -26,6 +26,10 @@ This project is developed in Dr. Racket, you need to download the interpreter an
  * cproc
  * eval
 
+# Development environment
+
+In this project it was used the IDE of Dr Racket were it was used to write and debug code. Also it was managed by GitHub to organize and share 
+the code with my partner. The CVS integration of Clion was the key of successful teamwork.
 
 # Data Structures and functions
 
@@ -71,6 +75,13 @@ Duration  | Activity | Description
 1 h  | Plannig | Skype with Roberto
 5 h  | Coding | Programming the update function
 2 h  | Coding | Programing remove functions
+
+# Conclusions
+* The functional paradigm is very inefficient for common programming problems. It is recommended to use an imperative paradigm
+for memory and cpu efficient programs
+* The parenthesis of LISP are very annoying and it is recommended to watch every parenthesis and if you are familiar with c syntax, you probably 
+will need to check if you used that syntax.
+* The recursion is a new way of thinking and it is widely used in functional languages. But it improves the way you think in other ways rather than the usual.
 
 # References
 * "Artanis Home." <i>Learn Scheme in 15 Minutes</i>. N.p., n.d. Web. 21 Aug. 2015. http://web-artanis.com/scheme.html

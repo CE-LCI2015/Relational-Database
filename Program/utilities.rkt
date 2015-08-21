@@ -63,8 +63,9 @@
 
 (define (carSTR string)(carSTRAux string))
 
-(define (split string)(append (carSTR string) (split (cdrSTR string))))
-
+(define (split string)
+  (regexp-split #px" " string)
+  )
 ;Element counter
 (define (length lis)
   (cond
