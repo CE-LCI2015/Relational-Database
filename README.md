@@ -34,6 +34,14 @@ foreign keys and the columns. As follows:
  
   {(tableName 0 id rows...)(1 data...)(2 data...)} 
   
+Also we have a header for the database where we store the procedures to be executed. 
+ 
+ * AddTable:
+ This function uses cons to add the table in the db.
+ * Insert:
+ Search the table, checks the arguments and insert the record.
+ * Update:
+ This function searches the record and analyses the parameters. This was a hard one to implement because of the argument analyzer.
 
 # Student's Activity Log
 # TimeSheet
@@ -65,9 +73,9 @@ Duration  | Activity | Description
 2 h  | Coding | Programing remove functions
 
 # References
-* http://web-artanis.com/scheme.html
-* http://alex-charlton.com/posts/Prototype_to_polish_Making_games_in_CHICKEN_Scheme_with_Hypergiant/
-* https://classes.soe.ucsc.edu/cmps112/Spring03/languages/scheme/SchemeTutorialA.html#example
-* http://docs.racket-lang.org/reference/let.html
-* http://c2.com/cgi/wiki?SchemeMacroExamples
-* http://docs.racket-lang.org/reference/strings.html
+* "Artanis Home." <i>Learn Scheme in 15 Minutes</i>. N.p., n.d. Web. 21 Aug. 2015. http://web-artanis.com/scheme.html
+* "Prototype to Polish: Making Games in CHICKEN Scheme with Hypergiant." Prototype to Polish: Making Games in CHICKEN Scheme with Hypergiant. N.p., n.d. Web. 21 Aug. 2015.  http://alex-charlton.com/posts/Prototype_to_polish_Making_games_in_CHICKEN_Scheme_with_Hypergiant/
+* Scheme Tutorial." Scheme Tutorial. N.p., n.d. Web. 21 Aug. 2015.  https://classes.soe.ucsc.edu/cmps112/Spring03/languages/scheme/SchemeTutorialA.html#example
+* "3.9 Local Binding: Let, Let*, Letrec, ..." 3.9 Local Binding: Let, Let*, Letrec, ... N.p., n.d. Web. 21 Aug. 2015. http://docs.racket-lang.org/reference/let.html
+* "Scheme Macro Examples." Scheme Macro Examples. N.p., n.d. Web. 21 Aug. 2015. http://c2.com/cgi/wiki?SchemeMacroExamples
+* "4.3 Strings." 4.3 Strings. N.p., n.d. Web. 21 Aug. 2015. http://docs.racket-lang.org/reference/strings.html
