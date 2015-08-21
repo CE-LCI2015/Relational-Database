@@ -11,6 +11,7 @@
                      ]
                     )
   )
+;saves the procedure on the db
 (define (saveProcedure functions dictionary word meaning)(cond
                                                      [(NOT(null? functions))
                                                       (cond
@@ -29,7 +30,7 @@
 
 
 
-
+; analizes the new procedure
 (define (cproc db args)(
                               append (list (list (append (caar db)) (saveProcedure (caar db) (cadar db) (car args) (cdr args)))) (cdr db)
 

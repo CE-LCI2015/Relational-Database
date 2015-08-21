@@ -2,11 +2,12 @@
 (require "utilities.rkt")
 
 (provide prompt-read showall searchtable searchtableget searchpk insertrecord remover printTable deltable)
-
+;read the user
 (define prompt-read (lambda (Prompt)
                   (display Prompt)    
                   (read-line))
 )
+; print all the db
 (define showall (lambda (db)
                   (cond
                     [(null? db ) 0]
@@ -14,6 +15,7 @@
                     )
                   )
   )
+;print a single table
 (define printTable (lambda (table)
                   (newline)
                   (display "-----------------------" )
@@ -32,6 +34,7 @@
                   (printRecords  (cdr table))
                   )
   )
+;print the records
 (define printRecords( lambda (records)
                        (cond
                     [(null? records ) 0]
@@ -95,7 +98,7 @@
                         )
 )
 
-
+;delete a table on the db
 (define deltable (lambda(db args)
                    (cond
                   [(NOT (= (length args) 1)) (display (ERROR_ARGUMENTS)) db]  ; wrong arguments
@@ -112,6 +115,7 @@
                       )     
                      )
   )
+;remove the record from a table
 (define remover (lambda(db args)
                   (cond
                   [(NOT (= (length args) 2)) (display (ERROR_ARGUMENTS)) db]  ; wrong arguments               

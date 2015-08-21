@@ -1,7 +1,7 @@
 #lang scheme
 (require "utilities.rkt" "DatabaseUtils.rkt")
 (provide query)
-
+;general query 
 (define query (lambda (db args)
                 (cond
                 [(= 1 (length args) ) (printTable(searchtableget (cdr db) (car args))) db ]
@@ -9,7 +9,7 @@
                 )
              )
   )
-
+;Specific case querys by rows
 (define queryPrintRows (lambda (table args)
                   (newline)
                   (display "-----------------------" )
@@ -29,12 +29,14 @@
 
                          )
   )
+;Aux to print records
 (define (printQueryRecords header records args)
                  (cond
                     [(null? records ) 0]
                     [#t (newline) (printQueryRecord header (car records) args) (printQueryRecords header (cdr records) args)]                      
                   )
   )
+;print a single record
 (define (printQueryRecord header record args)
   (cond
                     [(null? record) 0]

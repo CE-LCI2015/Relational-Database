@@ -39,6 +39,24 @@
     )
   )
 
+;;Defining and
+(define (and . args)
+  (cond
+    [(null? args) #t]
+    [(car args) (andaux args)]
+    [#t #f]
+    )
+  )
+(define (andaux args)
+  (cond
+    [(null? args) #t]
+    [(car args) (andaux (cdr args))]
+    [#t #f]
+    )
+  )
+
+
+
 (define (cdrSTR string [bool #f])
   (cond
     [(= (string-length string) 0) null]

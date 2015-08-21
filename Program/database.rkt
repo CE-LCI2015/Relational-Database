@@ -10,9 +10,9 @@
 ;
 ;((nombre numeroDeLlavesForaneas columnas.....) registros...)
 ;;;;
-
-(define (createProceduresList)( list '("addtable" "addt" "insert" "remover") '() ) )
-
+;;All posiblie proceadures
+(define (createProceduresList)( list '("addtable" "addt" "insert" "ins" "update" "ud" "remover" "rr" "deltable" "dt" "query" "showall") '() ) )
+;Main recursion where commands happen
 (define (manageCommand db command)(
   cond [(equal? command "showall") (showall (cdr db))(manageCommand db (prompt-read (PROMPT)))] ; if command is showall
   [(equal? command "exit") (exit)]
@@ -22,8 +22,8 @@
 )                  
                      
  
-            
-(define manageCommandAux (lambda (db args)(display db)
+    ;auxiliar to command manager        
+(define manageCommandAux (lambda (db args);(display db)
                                 (cond
                              [(or (equal? (car args) "addtable") (equal? (car args) "addt")) (addtable db (cdr args))]
                              [(or (equal? (car args) "insert") (equal? (car args) "ins")) (insert db (cdr args))]
@@ -36,16 +36,16 @@
                              [#t (display (string-append (ERROR_INPUT) (car args) "\n")) db]
                              ))
 )
-
+;Eval fucntion
 (define (ev db args)
   (evAux db (cadar db) (car args) (cdr args))
   )
-
+;finds associated command
 (define (evAux db functions alias params)(cond
                                         [(NOT(null? functions))
                                          (cond
                                            [(equal? (caar functions) alias)
-                                            (manageCommandAux db (cons (cadar functions) params))
+                                            (manageCommandAux db (append (cdar functions) params))
                                             ]
                                            [else (evAux db (cdr functions) alias params)]
                                            )
@@ -61,12 +61,12 @@
 
   
   
-
+;Adds a table in the db
 (define (addtable db args)(cond
                             [(= (length args) 1)(display (ERROR_ARGUMENTS)) db]
                             [#t (cons (car db) (cons (list (append (list (car args) 0) (cdr args))) (cdr db)))]) ;adds table with header 0 for foreign keys                       
                         )
-
+;Insert a record
 (define insert (lambda(db args)
                 (cond
                   [(equal? (searchtable (cdr db) (car args)) -1) db]; error wrong table
@@ -75,7 +75,7 @@
                   )      
                 )
 )
-  
-(define (database procedures) (manageCommand (list procedures) (prompt-read (WELCOME))));end database
+;Main
+(define (database) (manageCommand (list (createProceduresList)) (prompt-read (WELCOME))));end database
 
-(database (createProceduresList))
+(database )
