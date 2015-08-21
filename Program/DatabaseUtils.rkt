@@ -1,7 +1,7 @@
 #lang scheme
 (require "utilities.rkt")
 
-(provide prompt-read showall searchtable searchtableget searchpk insertrecord remover printTable)
+(provide prompt-read showall searchtable searchtableget searchpk insertrecord remover printTable deltable)
 
 (define prompt-read (lambda (Prompt)
                   (display Prompt)    
@@ -83,7 +83,22 @@
                          )
                         )
 )
-
+(define deltable (lambda(db args)
+                   (cond
+                  [(NOT (= (length args) 1)) (display (ERROR_ARGUMENTS)) db]  ; wrong arguments
+                  [#t  (cons (car db) (delaux (cdr db) args))]
+                   )
+                   )
+  )
+;findtable to delete
+(define delaux (lambda(db args)
+                     (cond
+                      [(NOT(equal? (car args) (caaar db))) (cons (car db) (delaux (cdr db) args))]
+                      [(> (length (cdar db)) 0) (display "Error table not empty") db]
+                      [#t  (cdr db) ]
+                      )     
+                     )
+  )
 (define remover (lambda(db args)
                   (cond
                   [(NOT (= (length args) 2)) (display (ERROR_ARGUMENTS)) db]  ; wrong arguments               

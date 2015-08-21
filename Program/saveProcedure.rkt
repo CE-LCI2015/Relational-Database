@@ -1,6 +1,6 @@
 #lang scheme
 (require "utilities.rkt")
-(provide cproc ev)
+(provide cproc)
 
 (define (wifs str)(cond
                     [(string? str) (list (with-input-from-string str (lambda() (read))))]
@@ -14,8 +14,8 @@
 (define (saveProcedure functions dictionary word meaning)(cond
                                                      [(NOT(null? functions))
                                                       (cond
-                                                        [(equal? (caar functions) (car meaning))
-                                                         (append dictionary (list (append (list word) meaning)))
+                                                        [(equal? (car functions) (car meaning))
+                                                         (cons (cons word meaning) dictionary)
                                                          ]
                                                         [else (saveProcedure (cdr functions) dictionary word meaning)]
                                                         )
@@ -27,33 +27,12 @@
                                                      )
 )
 
-(define (evAux db functions alias params)(cond
-                                        [(NOT(null? functions))
-                                         (cond
-                                           [(equal? (caar functions) alias)
-                                            (newline)
-                                            (display (append (wifs (cadar functions)) (list db) (list params)))
-                                            (eval (append (wifs (cadar functions)) (list db) (list params)))
-                                            ]
-                                           [else (evAux db (cdr functions) alias params)]
-                                           )
-                                         ]
-                                        [else 
-                                         (display "Error, procedure not found")
-                                         db
-                                         ]
-                                       )
-  )
 
-(define (cproc db args)(;cond
-                             ;[(and (> (length args) 5) (list? (cdr args))(list? (cddddr args)))
+
+
+(define (cproc db args)(
                               append (list (list (append (caar db)) (saveProcedure (caar db) (cadar db) (car args) (cdr args)))) (cdr db)
-                              ;]
-                             ;[else 
-                              ;(display "Parameter fault")
-                              ;db
-                              ;]
+
                         )
   )
 
-(define ev(lambda (db args)(evAux db (cadar db) (car args) (cdr args))))
