@@ -30,7 +30,7 @@
                              [(or (equal? (car args) "update") (equal? (car args) "ud")) (update db (cdr args))]
                              [(or (equal? (car args) "remover") (equal? (car args) "rr")) (remover db (cdr args))]
                              [(or (equal? (car args) "deltable") (equal? (car args) "dt")) (deltable db (cdr args))]
-                             [(equal? (car args) "query") (query db (cdr args))]
+                             [(equal? (car args) "query") (query db (cdr args)) db]
                              [(equal? (car args) "cproc") (cproc db (cdr args)) ]
                              [(equal? (car args) "eval") (ev db (cdr args)) ]
                              [#t (display (string-append (ERROR_INPUT) (car args) "\n")) db]
