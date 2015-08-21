@@ -38,9 +38,32 @@
     [#t (oraux (cdr args))]
     )
   )
-(define (split string)
-  (regexp-split #px" " string)
+
+(define (cdrSTR string [bool #f])
+  (cond
+    [(= (string-length string) 0) null]
+    [(and (equal? (string-ref string 0) #\())(cdrSTR (substring string 1) #t )]
+    [(and (equal? (string-ref string 0) #\))) (substring string 1)]
+    [(and (equal? (string-ref string 0) #\space) (equal? #f bool)) (substring string 1)] 
+    [(and (equal? (string-ref string 0) #\space) (equal? #t bool)) (cdrSTR (substring string 1) #t)] 
+    [else (cdrSTR (substring string 1) #f)]
+    )
   )
+
+(define (carSTRAux string [bool #f] [elem null])
+                                              (cond
+                                                [(equal? (string-length string) 0)elem]
+                                                [(and (equal? (string-ref string 0) #\() (null? elem))(carSTRAux (substring string 1) #t )]
+                                                [(and (equal? (string-ref string 0) #\))) elem]
+                                                [(and (equal? (string-ref string 0) #\space) (equal? #f bool)) elem] 
+                                                [(and (equal? (string-ref string 0) #\space) (equal? #t bool)) (append elem (carSTRAux (substring string 1) #t elem))] 
+                                                [else (append elem (list (make-string 1 (string-ref string 0))) (carSTRAux (substring string 1) #f elem))]
+                                                )
+  )
+
+(define (carSTR string)(carSTRAux string))
+
+(define (split string)(append (carSTR string) (split (cdrSTR string))))
 
 ;Element counter
 (define (length lis)

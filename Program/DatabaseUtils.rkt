@@ -117,10 +117,9 @@
   )
 
 ;select record
-(define removeraux2 (lambda(table args)
-                                  (cond
-                      [(NOT(equal? (car args) (caar table))) (cons (car table) (removeraux2 (cdr table) args))]
-                      [#t (cdr table)]
+(define removeraux2 (lambda(table args)(cond
+                                         [(NOT(equal? (car args) (caar table))) (cons (car table) (removeraux2 (cdr table) args))]
+                                         [#t (cdr table)]
+                                         )
                       )
-                 )
   )

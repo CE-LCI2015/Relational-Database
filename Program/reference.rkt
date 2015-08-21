@@ -50,10 +50,10 @@
   )
 
 ;setReference: main function
-(define (setReference db tableToReference foreignKeyCol sourceTableName) (cond
-                                                                           [(and (NOT(equal? -1 (searchtableget (cdr db) sourceTableName)))(NOT(null? (cdr (searchtableget (cdr db) tableToReference))))(equal? #t (car (setReferenceAux (cadddr (cdr (car (searchtableget (cdr db) tableToReference)))) foreignKeyCol sourceTableName))))
-                                                                           ; (append (car db) (carN (cdr db) (- (searchtable tableToReference) 1)) () (carN (cdr db) (+ (searchtable tableToReference) 1)))
-                                                                            ]
-                                                                           )
-)
+(define (setReference db args) (cond
+                                 [(and (NOT(equal? -1 (searchtableget (cdr db) (cdddr args))))(NOT(null? (cdr (searchtableget (cdr db) (cadr args)))))(equal? #t (car (setReferenceAux (cadddr (cdr (car (searchtableget (cdr db) (cadr args))))) (caddr args)(cadddr args)))))
+                                  append (car db) (carN (cdr db) (- (searchtable (cdr db) (cadr args)) 1)) (setReferenceAux (car (searchtableget (cdr db) (cadr args))) (cadddr args) (cadddr args)) (+ (searchtable (cdr args)) 1)
+                                  ]
+                                 )
+  )
 
