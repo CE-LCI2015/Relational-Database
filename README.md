@@ -26,6 +26,15 @@ This project is developed in Dr. Racket, you need to download the interpreter an
  * cproc
  * eval
 
+
+# Data Structures and functions
+
+The database was implemented using lists as tables and inside the table we have a table in which we include a header with the name, number of 
+foreign keys and the columns. As follows:
+ 
+  {(tableName 0 id rows...)(1 data...)(2 data...)} 
+  
+
 # Student's Activity Log
 # TimeSheet
 
