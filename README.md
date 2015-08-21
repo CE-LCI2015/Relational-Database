@@ -25,7 +25,17 @@ This project is developed in Dr. Racket, you need to download the interpreter an
  * query
  * cproc
  * eval
+## Test Cases
+ ![Screenshot of UI](http://s11.postimg.org/iae61su8z/Screen_Shot_2015_08_21_at_3_45_09_AM.png)
+ 
+ 
+ **Example of addtable, insert**
 
+ ![Screenshot of UI](http://s30.postimg.org/gzuutbnb5/Screen_Shot_2015_08_21_at_3_49_58_AM.png)
+ 
+ 
+ **Test case of update, showall**
+ 
 # Development environment
 
 In this project it was used the IDE of Dr Racket were it was used to write and debug code. Also it was managed by GitHub to organize and share 
