@@ -84,11 +84,40 @@ Also we have a header for the database where we store the procedures to be execu
  Search the table, checks the arguments and insert the record.
  * Update:
  This function searches the record and analyses the parameters. This was a hard one to implement because of the argument analyzer.
- 
+ * SaveProcedure:
+ This function stores a procedure on a list.
+ * cproc:
+ This funcion calls SaveProcedure.
+ * updateargs:
+ Updates the reicived arguments.
+ * updatenamevalue:
+ Compares a row name with a parameter and returns a value to assign.
+ * remover:
+ Removes a record using the primary key.
+ * deltable
+ Removes a table if its empty.
+ * searchpk
+ Returns the index of a primary key
+ * searchtableget
+ Returns the index of a required table
+ * showall
+ Show all the tables and registers on command line
+ * manageCommand
+ Reads a command and executes its meanning
+ * ev (eval)
+ Evaluates a stored procedure
+ * setReference
+ Creates a list with a column and returns the header. For example (table fK col0 ... colN) -> (table fK col0 ... (colR table) ... colN)
+ * removeReference
+ Removes a reference only if the table is empty
+ * query
+ Performs a requested query
+
+
 # Project Final Status
 
 Current features: add tables, insert records, update records, remove records and tables.
-Features in process: Proc and references.
+Features in process: the references are almost ready, but we had problems updating the headers.
 
 # Student's Activity Log
 # TimeSheet
@@ -100,10 +129,11 @@ Features in process: Proc and references.
 | Investigation         | Lecture: José Helo, Introducción a la Programación con Scheme      	 | 8        |
 | Writing code         | functions to analyze                   				         | 2        |  
 | Investigation         | Eval function     	 								 | 3        |
+| Planning         | Skype with Pablo           		 					 | 1        |
 | Writing code         | stored procedures           		 					 | 3        |
 | Writing code         | relations                              		 					 | 3        |
-| Debugging             | evaluation of stored procedures                              | 10     |
-| Documentation   | functions                                                                                 | 3        |
+| Debugging             | evaluation of stored procedures and relations                             | 20     |
+| Documentation   | functions                                                                                 | 1        |
 | Documentation   | final details                                                                            | 2        |
 
 **Pablo Rodriguez**
