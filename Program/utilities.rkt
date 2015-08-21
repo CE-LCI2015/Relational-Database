@@ -122,14 +122,15 @@
     )
   )
 
-(define (carN lis f [i 0])(cond
+;returns n cars
+(define (carN lis f [i 0] [nL '()])
+                                    (cond
                               [(NOT(null? lis))
                                (cond
                                  [(> i 0)(carN (cdr lis) f (- i 1))]
-                                 [(or (> f i)(= f i))(append (car lis) (carN (cdr lis) (- f 1) i))]
+                                 [(> f i)(carN (cdr lis) f (+ i 1) (append nL (list (car lis))))]
                                )
-                              ]
-                              [else null]
+                              ][#t nL]
                               )
   )
 

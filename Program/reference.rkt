@@ -50,10 +50,18 @@
   )
 
 ;setReference: main function
-(define (setReference db args) (cond
-                                 [(and (NOT(equal? -1 (searchtableget (cdr db) (cdddr args))))(NOT(null? (cdr (searchtableget (cdr db) (cadr args)))))(equal? #t (car (setReferenceAux (cadddr (cdr (car (searchtableget (cdr db) (cadr args))))) (caddr args)(cadddr args)))))
-                                  append (car db) (carN (cdr db) (- (searchtable (cdr db) (cadr args)) 1)) (setReferenceAux (car (searchtableget (cdr db) (cadr args))) (cadddr args) (cadddr args)) (+ (searchtable (cdr args)) 1)
-                                  ]
+(define (setReference db args) (;cond
+                                ; [(and 
+                                ;   (NOT(equal? -1 (searchtableget (cdr db) (cdddr args))))
+                                ;   (NOT(null? (cdr (searchtableget (cdr db) (cadr args)))))
+                                ;   (equal? #t (car (setReferenceAux (car (searchtableget (cdr db) (car args))) (cadr args)(caddr args))))
+                                ;   )
+                                ;(setReferenceAux (car (searchtableget (cdr db) (car args))) (cadr args) (caddr args))
+                                  ;(display (carN (cdr db) (- (searchtable (cdr db) (car args)) 1)))
+                                  ;(append (list (car db)) (carN (cdr db) (searchtable (cdr db) (car args))) (cdr(setReferenceAux (car (searchtableget (cdr db) (car args))) (cadr args) (caddr args))) (cdr (searchtableget (cdr db) (car args))) (carN (cdr db) (length (cdr db)) (+ (searchtable (cdr db) (car args)) 1)))
+                                (newline)  
+                                display (cdr(setReferenceAux (car (searchtableget (cdr db) (car args))) (cadr args) (caddr args)))
+                                ;  ]
                                  )
   )
 
