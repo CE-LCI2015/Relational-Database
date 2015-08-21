@@ -25,10 +25,10 @@
                   (display (cadar table))
                   (newline)
                   (display "Columns: " )
+                  (newline)
                   (display (cddar table))
                   (newline)
                   (display "Records: " )
-                  (newline)
                   (printRecords  (cdr table))
                   )
   )
@@ -75,7 +75,7 @@
                         (cond
                           [(null? table) (display (WRONG_PK)) -1]
                           [(equal? primarykey (caar table)) index]
-                          [#t (searchpk (cdr table) primarykey (+ 1 index))]
+                          [#t (searchpkaux (cdr table) primarykey (+ 1 index))]
                           )
                    )
   
@@ -94,6 +94,8 @@
                          )
                         )
 )
+
+
 (define deltable (lambda(db args)
                    (cond
                   [(NOT (= (length args) 1)) (display (ERROR_ARGUMENTS)) db]  ; wrong arguments
