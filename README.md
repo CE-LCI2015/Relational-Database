@@ -25,6 +25,8 @@ This project is developed in Dr. Racket, you need to download the interpreter an
  * query
  * cproc
  * eval
+ 
+ 
 ## Test Cases
  ![Screenshot of UI](http://s11.postimg.org/iae61su8z/Screen_Shot_2015_08_21_at_3_45_09_AM.png)
  
@@ -56,6 +58,11 @@ Also we have a header for the database where we store the procedures to be execu
  Search the table, checks the arguments and insert the record.
  * Update:
  This function searches the record and analyses the parameters. This was a hard one to implement because of the argument analyzer.
+ 
+# Project Final Status
+
+Current features: add tables, insert records, update records, remove records and tables.
+Features in process: Proc and references.
 
 # Student's Activity Log
 # TimeSheet
@@ -85,7 +92,8 @@ Duration  | Activity | Description
 1 h  | Plannig | Skype with Roberto
 5 h  | Coding | Programming the update function
 2 h  | Coding | Programing remove functions
-
+4 h  | Debug | Fixing problem with cproc eval
+2 h  | Coding | Query by rows
 # Conclusions
 * The functional paradigm is very inefficient for common programming problems. It is recommended to use an imperative paradigm
 for memory and cpu efficient programs
