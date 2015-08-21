@@ -50,6 +50,24 @@ This project is developed in Dr. Racket, you need to download the interpreter an
 
 In this project it was used the IDE of Dr Racket were it was used to write and debug code. Also it was managed by GitHub to organize and share 
 the code with my partner. The CVS integration of Clion was the key of successful teamwork.
+_Clion 1.0.5_
+
+A "powerful IDE helps you develop in C and C++ on Linux, OS X and Windows, enhancing your productivity with a smart editor, code quality assurance, automated refactorings, and deep integration with CMake build system."
+
+_Github_
+
+Is a "Online project hosting using Git. Includes source-code browser, in-line editing, wikis, and ticketing."
+
+_MarkDown_
+
+Markdown is a text-to-HTML conversion tool for web writers. Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML).
+
+_Dillinger_
+
+Is an online cloud based HTML5 filled Markdown Editor. Sync with Dropbox, Github and Google Drive.
+_Dr Racket_
+
+Is a IDE and Interpreter of scheme
 
 # Data Structures and functions
 
