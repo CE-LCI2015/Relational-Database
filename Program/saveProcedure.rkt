@@ -1,7 +1,7 @@
 #lang scheme
 (require "utilities.rkt")
 (provide cproc)
-
+;returns the word of a sting. Its name means with-input-from-string
 (define (wifs str)(cond
                     [(string? str) (list (with-input-from-string str (lambda() (read))))]
                     [(list? str)(cond
