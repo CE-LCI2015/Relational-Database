@@ -21,12 +21,23 @@
                   (display "Table Name: " )
                   (display (caar table))
                   (newline)
+                  (display "Foreign Keys: " )
+                  (display (cadar table))
+                  (newline)
                   (display "Columns: " )
                   (display (cddar table))
                   (newline)
-                  (display "Registers: " )
-                  (display  (cdr table))
+                  (display "Records: " )
+                  (newline)
+                  (printRecords  (cdr table))
                   )
+  )
+(define printRecords( lambda (records)
+                       (cond
+                    [(null? records ) 0]
+                    [#t (newline) (display (car records)) (printRecords (cdr records))]                      
+                       )
+                    )
   )
 
 ; Returns index of table in db
@@ -43,7 +54,7 @@
                         (cond
                           [(null? db) (display (WRONG_TABLE)) -1]
                           [(equal? tablename (caaar db)) (car db)]
-                          [#t (searchtable (cdr db) tablename (+ 1 index))]
+                          [#t (searchtableget (cdr db) tablename (+ 1 index))]
                           )
                         )
 )
